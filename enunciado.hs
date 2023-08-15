@@ -59,9 +59,12 @@ connectsL :: City -> Link -> Bool   -- indica si esta ciudad es parte de este li
 connectsL (Cit Name Point) (Lin (Cit Name1 Point1) (Cit Name2 Point2) (Qua Material Capacity Last)) = if ((Name == Name1) && (Point == Point1)) || ((Name == Name2) && (Point == Point2)) then True
                                                                                                         else False
 linksL :: City -> City -> Link -> Bool -- indica si estas dos ciudades distintas estan conectadas mediante este link
-
+linksL (Cit Name1 Point1) (Cit Name2 Point2) Lin (Cit Name3 Point1) (Cit Name4 Point2) (Qua Material Capacity Last) = if (connectsL (Cit Name1 Point1) Lin (Cit Name3 Point1) (Cit Name4 Point2) (Qua Material Capacity Last)) &&  connectsL (Cit Name2 Point2) Lin (Cit Name3 Point1) (Cit Name4 Point2) (Qua Material Capacity Last) then True
+                                                                                                                       else False
 capacityL :: Link -> Int
+capacityL Lin (Cit Name3 Point1) (Cit Name4 Point2) (Qua Material Capacity Last) = round(delayQ Qua)
 delayL :: Link -> Float     -- la demora que sufre una conexion en este canal
+delayL Lin (Cit Name3 Point1) (Cit Name4 Point2) (Qua Material Capacity Last) = (layQ Qua) * distance (Cit Name3 Point1) (Cit Name4 Point2)
 -------------------
 module Tunel ( Tunel, newT, connectsT, usesT, delayT )
    where
@@ -69,16 +72,23 @@ module Tunel ( Tunel, newT, connectsT, usesT, delayT )
 data Tunel = Tun [Link] deriving (Eq, Show)
 
 newT :: [Link] -> Tunel
+newT [Lin (Cit Name1 Point1) (Cit Name2 Point2) (Qua Material Capacity Last)] = Tun [Lin (Cit Name1 Point1) (Cit Name2 Point2) (Qua Material Capacity Last)]
 connectsT :: City -> City -> Tunel -> Bool -- inidca si este tunel conceta estas dos ciudades distintas
+connectsT ((Cit Name Point) (Cit Name1 Point1) (Tun [Lin (Cit Name2 Point2) (Cit Name3 Point3) (Qua Material Capacity Last)])) = if linksL ((Cit Name Point) (Cit Name1 Point1) (Lin (Cit Name2 Point2) (Cit Name3 Point3) (Qua Material Capacity Last))) then True
+                                                                  else False
 usesT :: Link -> Tunel -> Bool  -- indica si este tunel atraviesa ese link
+usesT (Lin (Cit Name1 Point1) (Cit Name2 Point2) (Qua Material Capacity Last)) (Tun [Lin (Cit Name3 Point3) (Cit Name4 Point4) (Qua Material Capacity Last)]) = 
 delayT :: Tunel -> Float -- la demora que sufre una conexion en este tunel
+delayT Tun [Lin (Cit Name1 Point1) (Cit Name2 Point2) (Qua Material Capacity Last)] = (layQ Qua) * distance ((Cit Name1 Point1) (Cit Name2 Point2))
 -------------------
 module Region ( Region, newR, foundR, linkR, tunelR, pathR, linksForR, connectedR, linkedR, delayR, availableCapacityForR, usedCapacityForR )
    where
 
 data Region = Reg [City] [Link] [Tunel]
 newR :: Region
+newR = Reg [City] [Link] [Tunel]
 foundR :: Region -> City -> Region -- agrega una nueva ciudad a la región
+foundR (Reg [City] [Link] [Tunel]) city = city ++ [City]
 linkR :: Region -> City -> City -> Quality -> Region -- enlaza dos ciudades de la región con un enlace de la calidad indicada
 tunelR :: Region -> [ City ] -> Region -- genera una comunicación entre dos ciudades distintas de la región
 connectedR :: Region -> City -> City -> Bool -- indica si estas dos ciudades estan conectadas por un tunel
