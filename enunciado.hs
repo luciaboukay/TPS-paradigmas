@@ -20,8 +20,7 @@ difP :: Point -> Point -> Float  -- distancia absoluta
 difP (Poi x1 y1) (Poi x2 y2) = sqrt(fromIntegral((x1-x2)^2+(y1-y2)^2))
 
 -----------------
-module City ( City, newC, nameC, distanceC )
-   where
+module City (City, newC, nameC, distanceC) where
 
 data City = Cit String Point deriving (Eq, Show)
 
@@ -75,11 +74,13 @@ newT :: [Link] -> Tunel
 newT [Lin (Cit Name1 Point1) (Cit Name2 Point2) (Qua Material Capacity Last)] = Tun [Lin (Cit Name1 Point1) (Cit Name2 Point2) (Qua Material Capacity Last)]
 connectsT :: City -> City -> Tunel -> Bool -- inidca si este tunel conceta estas dos ciudades distintas
 connectsT ((Cit Name Point) (Cit Name1 Point1) (Tun [Lin (Cit Name2 Point2) (Cit Name3 Point3) (Qua Material Capacity Last)])) = if linksL ((Cit Name Point) (Cit Name1 Point1) (Lin (Cit Name2 Point2) (Cit Name3 Point3) (Qua Material Capacity Last))) then True
-                                                                                                                                    else False
+                                                                                                                                   else False
 usesT :: Link -> Tunel -> Bool  -- indica si este tunel atraviesa ese link
 usesT (Lin (Cit Name1 Point1) (Cit Name2 Point2) (Qua Material Capacity Last)) (Tun [Lin (Cit Name3 Point3) (Cit Name4 Point4) (Qua Material Capacity Last)]) = 
 delayT :: Tunel -> Float -- la demora que sufre una conexion en este tunel
-delayT Tun [Lin (Cit Name1 Point1) (Cit Name2 Point2) (Qua Material Capacity Last)] = (layQ Qua) * distance ((Cit Name1 Point1) (Cit Name2 Point2))
+append_delays :: [a] -> [a]
+append_delays Tun links = foldl (\fold each -> delayL(each): fold) links
+delayT Tun Links_1 = foldr (+) 0 (append_delays(Links_1)) 
 -------------------
 module Region ( Region, newR, foundR, linkR, tunelR, pathR, linksForR, connectedR, linkedR, delayR, availableCapacityForR, usedCapacityForR )
    where
