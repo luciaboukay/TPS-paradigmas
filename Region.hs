@@ -1,11 +1,11 @@
 module Region ( Region, newR, foundR, linkR, tunelR, pathR, linksForR, connectedR, linkedR, delayR, availableCapacityForR, usedCapacityForR )
    where
 
-import Point (Point, newP, difP)
-import City (City, newC, nameC, distanceC)
-import Quality (Quality, delayQ, capacityQ, newQ)
-import Link (Link, newL, linksL, connectsL, capacityL, delayL)
-import Tunel (Tunel, newT, connectsT, usesT, delayT)
+import Point
+import City
+import Quality
+import Link
+import Tunel
 
 data Region = Reg [City] [Link] [Tunel]
 
@@ -16,7 +16,7 @@ foundR :: Region -> City -> Region -- agrega una nueva ciudad a la región
 foundR (Reg cities _ _) city = city:cities
 
 linkR :: Region -> City -> City -> Quality -> Region -- enlaza dos ciudades de la región con un enlace de la calidad indicada
-linkR (Reg cities links _) city1 city2 quality | not (elem city1 cities && elem city2 cities) = error "Para establecer el enlace, ambas ciudades deben estar en la region."
+linkR (Reg cities links _) city1 city2 quality | not (((elem) city1 cities) && ((elem) city2 cities)) = error "Para establecer el enlace, ambas ciudades deben estar en la region."
                                                | otherwise = (newL city1 city2 quality):links
 
 tunelR :: Region -> [ City ] -> Region -- genera una comunicación entre dos ciudades distintas de la región

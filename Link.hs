@@ -1,4 +1,4 @@
-module Link ( Link, newL, linksL, connectsL, capacityL, delayL )
+module Link ( Link, newL, linksL, connectsL, capacityL, delayL)
    where
 
 import Point
@@ -17,12 +17,6 @@ connectsL city (Lin city1L city2L _) = city == city1L || city == city2L
 
 linksL :: City -> City -> Link -> Bool -- indica si estas dos ciudades distintas estan conectadas mediante este link
 linksL city1 city2 link = connectsL city1 link && connectsL city2 link
-
-getCity1L :: Link -> City
-getCity1L (Lin city1 city2 _) = city1
-
-getCity2L :: Link -> City
-getCity2L (Lin city1 city2 _) = city2
 
 capacityL :: Link -> Int
 capacityL (Lin _ _ quality) = capacityQ quality
