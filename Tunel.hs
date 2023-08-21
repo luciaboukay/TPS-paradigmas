@@ -10,7 +10,7 @@ data Tunel = Tun [Link] deriving (Eq, Show)
 
 newT :: [Link] -> Tunel
 newT links | links == [] = error "El tunel debe tener al menos un link."
-           | foldr(\linkX acc -> (capacityL linkX <= 0) || acc) False links = error "Todos los enlaces deben tener capacidad disponiblle para crear el tunel"
+           | foldr(\linkX acc -> (capacityL linkX <= 0) || acc) False links = error "Todos los enlaces deben tener capacidad disponible para crear el tunel"
            | otherwise = Tun links
 
 esElInicio :: City -> [Link] -> Bool
