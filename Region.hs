@@ -7,7 +7,11 @@ import Quality
 import Link
 import Tunel
 
-data Region = Reg [City] [Link] [Tunel] deriving (Eq, Show)
+data Region = Reg [City] [Link] [Tunel] deriving (Eq)
+
+instance Show Region
+      where show (Reg cities links tunels) = "C: " ++ show cities ++ "\nL: " ++ show links ++ "\nT: " ++ show tunels
+
 
 newR :: Region
 newR = Reg [] [] []
