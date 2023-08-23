@@ -10,7 +10,7 @@ import Tunel
 data Region = Reg [City] [Link] [Tunel] deriving (Eq)
 
 instance Show Region
-      where show (Reg cities links tunels) = "C: " ++ show cities ++ "\nL: " ++ show links ++ "\nT: " ++ show tunels
+      where show (Reg cities links tunels) = "Cities: " ++ show cities ++ "\nLinks: " ++ show links ++ "\nTunels: " ++ show tunels
 
 
 newR :: Region
