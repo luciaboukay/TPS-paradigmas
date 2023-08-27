@@ -113,21 +113,14 @@ errorLinkYaEnRegion = linkR r4 c1 c6 q1
 -- Tira el error de link sin capacidad para tunel
 errorLinkSinCapacidad2 = tunelR r6 [c1,c3]
 
--- Tira el error de link no existente en la region
-errorLinkNoEnRegion = linksForR r11 c3 c7
-
 tRegion = [connectedR r8 c6 c3,
-           connectedR r8 c3 c6,
+           connectedR r9 c3 c6,
            not (connectedR r8 c1 c6),
-           connectedR r9 c3 c1,
+           connectedR r11 c3 c1,
            linkedR r9 c1 c3,
            linkedR r9 c3 c1,
            not (linkedR r9 c3 c6),
-           --delayR r9 c3 c6 == 
-           length (pathR r11 [c6,c1,c7] []) == 1,
-           length (pathR r11 [c6,c1] []) == 1,
-           --usedCapacity
-           --linksForR r11 c1 c3 == linksForR r11 c3 c1
+           delayR r8 c3 c6 == delayL l4 + delayL l1,
            availableCapacityForR r11 c1 c3 == 1,
            availableCapacityForR r11 c3 c1 == 1,
            availableCapacityForR r11 c1 c7 == 0]

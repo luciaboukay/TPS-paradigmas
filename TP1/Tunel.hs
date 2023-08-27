@@ -22,7 +22,8 @@ esElFinal cityLinked links | connectsL cityLinked (last links) && not (connectsL
                            | otherwise = False
 
 connectsT :: City -> City -> Tunel -> Bool -- inidca si este tunel conceta estas dos ciudades distintas
-connectsT city1InT city2InT (Tun links) | length links == 1 && linksL city1InT city2InT (head links) = True
+connectsT city1InT city2InT (Tun links) | null links = False
+                                        | length links == 1 = linksL city1InT city2InT (head links)
                                         | esElInicio city1InT links && esElFinal city2InT links = True
                                         | esElInicio city2InT links && esElFinal city1InT links = True
                                         | otherwise = False
