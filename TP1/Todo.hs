@@ -96,7 +96,7 @@ r9 = tunelR r8 [c1,c3]
 r10 = foundR r9 c7
 r11 = linkR r10 c1 c7 q3
 
--- Tira el error de ciuadad ya existente en la region
+-- Tira el error de ciuadad ya perteneciente en la region
 errorCiudadYaEnRegion = foundR r2 c1
 
 -- Tira el error de enlace entre ciudades no pertenecientes a la region

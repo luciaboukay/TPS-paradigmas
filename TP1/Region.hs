@@ -7,7 +7,7 @@ import Quality
 import Link
 import Tunel
 
-data Region = Reg [City] [Link] [Tunel] deriving (Eq)
+data Region = Reg [City] [Link] [Tunel]
 
 instance Show Region
       where show (Reg cities links tunels) = "Cities: " ++ show cities ++ "\nLinks: " ++ show links ++ "\nTunels: " ++ show tunels
