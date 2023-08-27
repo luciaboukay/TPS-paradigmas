@@ -62,34 +62,3 @@ availableCapacityForR :: Region -> City -> City -> Int -- indica la capacidad di
 availableCapacityForR region city1 city2 | not (isCInRegionR region city1) = error "Las ciudades no pertenecen a la region."
                                          | not (isCInRegionR region city2) = error "Las ciudades no pertenecen a la region."
                                          | otherwise = capacityL (linksForR region city1 city2) - usedCapacityForR region (linksForR region city1 city2)
-
-
-x = newP 2 3
-y = newP 4 1
-w = newP 5 7
-v = newP 8 2
-
-c1 = newC "ciudad1" x
-c3 = newC "ciudad3" y
-c6 = newC "ciudad6" w
-c7 = newC "ciudad7" v
-
-q1 = newQ "cobre" 3 42
-q3 = newQ "cobre" 0 22
-
-r1 = newR
-r2 = foundR r1 c1
-r3 = foundR r2 c6
-r4 = linkR r3 c1 c6 q1
-r5 = foundR r4 c3
-r7 = linkR r5 c1 c3 q1
-r8 = tunelR r7 [c6,c1,c3]
-r9 = tunelR r8 [c1,c3]
-r10 = foundR r9 c7
-r11 = linkR r10 c1 c7 q3
-
--- Tira el error de link no existente en la region
-errorLinkNoEnRegion = linksForR r11 c3 c7
-
-tFuncionesParciales = [length (pathR r11 [c6,c1,c7] []) == 1,
-                       length (pathR r11 [c6,c1] []) == 1]
