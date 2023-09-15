@@ -9,11 +9,11 @@ public class EmptyStatusOfQ extends StatusOfQ {
 	public boolean isEmpty() {
 		return true;
 	}
-	
+
 	public String take(List<String> queue) {
 		throw new RuntimeException(emptyQueueError);
 	}
-	
+
 	public String head(List<String> queue) {
 		throw new RuntimeException(emptyQueueError);
 	}
