@@ -1,32 +1,44 @@
 package queue;
 
-public class Queue {
+import java.util.ArrayList;
+import java.util.List;
 
-  public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return true;
+public class Queue {
+	
+    private StatusOfQ currentStateOfQ = StatusOfQ.emptyQueue();
+    private List<StatusOfQ> historicalStatesOfQ = new ArrayList<>();
+    private List<String> queue = new ArrayList<>();
+  
+    public Queue() {
+    	historicalStatesOfQ.add(currentStateOfQ);
+    }
+    
+    public boolean isEmpty() {
+	    return lastHistoricalState().isEmpty();	
 	}
 
 	public Queue add( Object  cargo ) {
-		// TODO Auto-generated method stub
+		currentStateOfQ = StatusOfQ.nonEmptyQueue();
+		queue.add((String) cargo);
+		historicalStatesOfQ.add(currentStateOfQ);
 		return this;
 	}
 
 	public Object take() {
-    // TODO Auto-generated method stub
-		return null;
+		currentStateOfQ = lastHistoricalState();
+		historicalStatesOfQ.remove(currentStateOfQ);
+		return currentStateOfQ.take(queue);
 	}
 
 	public Object head() {
-		// TODO Auto-generated method stub
-    return null;
+		return currentStateOfQ.head(queue);
 	}
 
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+			return queue.size();
+		
 	}
-
+	private StatusOfQ lastHistoricalState() {
+		return historicalStatesOfQ.get(historicalStatesOfQ.size()-1);
+	}
 }
-
-// cambios en visuak
