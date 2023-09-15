@@ -31,7 +31,7 @@ public class Queue {
 	}
 
 	public Object head() {
-		return currentStateOfQ.head(queue);
+	      return currentStateOfQ.head(queue);
 	}
 
 	public int size() {
