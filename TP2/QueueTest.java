@@ -9,10 +9,6 @@ import org.junit.jupiter.api.function.Executable;
 
 public class QueueTest {
 
-	private static String justATextAddedSecond = "Second";
-	private static String justATextAddedFirst = "First";
-	private static String justAText = "Something";
-
 	@Test
 	public void test01QueueShouldBeEmptyWhenCreated() {
 		assertTrue(new Queue().isEmpty());
@@ -25,7 +21,7 @@ public class QueueTest {
 
 	@Test
 	public void test03AddedElementsIsAtHead() {
-		assertEquals(justAText, queuewithJustAText().head());
+		assertEquals("Something", queuewithJustAText().head());
 	}
 
 	@Test
@@ -37,21 +33,21 @@ public class QueueTest {
 
 	@Test
 	public void test05TakeReturnsLastAddedObject() {
-		assertEquals(justAText, queuewithJustAText().take());
+		assertEquals("Something", queuewithJustAText().take());
 	}
 
 	@Test
 	public void test06QueueBehavesFIFO() {
 		Queue queue = queueWithJustATextAddedFirstAndJustATextAddedSecond();
 
-		assertEquals(queue.take(), justATextAddedFirst);
-		assertEquals(queue.take(), justATextAddedSecond);
+		assertEquals(queue.take(), "First");
+		assertEquals(queue.take(), "Second");
 		assertTrue(queue.isEmpty());
 	}
 
 	@Test
 	public void test07HeadReturnsFirstAddedObject() {
-		assertEquals(queueWithJustATextAddedFirstAndJustATextAddedSecond().head(), justATextAddedFirst);
+		assertEquals(queueWithJustATextAddedFirstAndJustATextAddedSecond().head(), "First");
 	}
 
 	@Test
@@ -86,14 +82,14 @@ public class QueueTest {
 
 	private Queue queuewithJustAText() {
 		Queue queue = new Queue();
-		queue.add(justAText);
+		queue.add("Something");
 		return queue;
 	}
 
 	private Queue queueWithJustATextAddedFirstAndJustATextAddedSecond() {
 		Queue queue = new Queue();
-		queue.add(justATextAddedFirst);
-		queue.add(justATextAddedSecond);
+		queue.add("First");
+		queue.add("Second");
 		return queue;
 	}
 
