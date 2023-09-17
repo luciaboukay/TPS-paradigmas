@@ -96,4 +96,5 @@ public class QueueTest {
 	private void assertThrowsLike(Executable executable, String message) {
 		assertEquals(message, assertThrows(Exception.class, executable).getMessage());
 	}
+
 }
