@@ -73,14 +73,14 @@ public class QueueTest {
 	}
 
 	@Test
-	public void test09CanNotTakeWhenThereAreNoObjectsInTheQueueAndTheQueueHadObjects() {
+	public void test11CanNotTakeWhenThereAreNoObjectsInTheQueueAndTheQueueHadObjects() {
 		Queue queue = queuewithJustAText();
 		queue.take();
 		assertThrowsLike(() -> queue.take(), EmptyStatusOfQ.emptyQueueError);
 	}
 
 	@Test
-	public void test10CanNotHeadWhenThereAreNoObjectsInTheQueue() {
+	public void test12CanNotHeadWhenThereAreNoObjectsInTheQueue() {
 		assertThrowsLike(() -> new Queue().head(), EmptyStatusOfQ.emptyQueueError);
 	}
 
