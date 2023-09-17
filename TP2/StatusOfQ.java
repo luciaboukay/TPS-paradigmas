@@ -17,5 +17,4 @@ public abstract class StatusOfQ {
 	
 	public abstract String head(List<String> queue);
 	
-	
 }
